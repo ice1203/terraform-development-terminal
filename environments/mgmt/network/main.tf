@@ -46,7 +46,7 @@ module "vpc_endpoints" {
       service         = "dynamodb"
       service_type    = "Gateway"
       route_table_ids = flatten([module.main_vpc.intra_route_table_ids, module.main_vpc.private_route_table_ids, module.main_vpc.public_route_table_ids])
-      tags = { Name = "dynamodb-vpc-endpoint" }
+      tags            = { Name = "dynamodb-vpc-endpoint" }
     },
   }
 
