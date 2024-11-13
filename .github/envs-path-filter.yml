@@ -1,0 +1,24 @@
+# 書式説明：
+# environments ディレクトリ以下のディレクトリ名をenvironmentsからの相対パスで指定（サブディレクトリを含む、末尾に/はつけない）:
+#    - 'その環境ディレクトリ内のすべてのファイル（ワイルドカード ** で指定）をリポジトリのルートディレクトリからの相対パスで指定'
+#    - 'その環境が使用している modules ディレクトリ内のすべてのファイル（ワイルドカード ** で指定）をリポジトリのルートディレクトリからの相対パスで指定'
+#
+# 具体例：
+# mgmt/development-terminal:
+#   - 'terraform/environments/mgmt/development-terminal/**'  # このディレクトリ内のすべてのファイル
+#   - 'terraform/modules/development-terminal/**'  # このディレクトリが使用しているモジュール内のすべてのファイル
+#
+# 注意：
+# - 各環境ディレクトリに対して、そのディレクトリ内のファイルとそれが使用するモジュールを指定します。
+# - ワイルドカード (**) を使用することで、指定したディレクトリ以下のすべてのファイルを含めることができます。
+
+mgmt/development-terminal:
+  - 'environments/mgmt/development-terminal/**'
+  - 'modules/development-terminal/**'
+
+mgmt/nat-instance:
+  - 'environments/mgmt/nat-instance/**'
+  - 'modules/natinstance-ec2/**'
+
+mgmt/network:
+  - 'environments/mgmt/network/**'

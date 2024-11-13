@@ -1,0 +1,20 @@
+
+# 書式説明：
+# modules ディレクトリ以下のディレクトリ名をmodulesからの相対パスで指定（末尾に/はつけない）:
+#    - 'そのディレクトリ内のすべてのファイル（ワイルドカード ** で指定）をリポジトリのルートディレクトリからの相対パスで指定'
+#
+# 具体例：
+# development-terminal:
+#   - 'modules/development-terminal/**'
+#
+# 注意：
+# - ワイルドカード (**) を使用することで、指定したディレクトリ以下のすべてのファイルを含めることができます。
+
+github-actions:
+  - 'modules/github-actions/**'
+
+natinstance-ec2:
+  - 'modules/natinstance-ec2/**'
+
+development-terminal:
+  - 'modules/development-terminal/**'

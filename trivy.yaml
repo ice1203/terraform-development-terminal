@@ -1,0 +1,11 @@
+# スキャンのタイムアウト時間を指定
+timeout: 10m
+# デフォルトでは、脆弱性が検出された場合でもコード 0 で終了する。オプション指定により終了コードを変更できる
+exit-code: 1
+# 脅威度によるフィルタリング。指定したレベルの脅威度だけを表示
+severity:
+  - CRITICAL
+  - HIGH
+misconfiguration:
+  terraform:
+    exclude-downloaded-modules: true

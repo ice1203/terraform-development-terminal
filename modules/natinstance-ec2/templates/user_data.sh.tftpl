@@ -1,0 +1,20 @@
+#!/bin/bash
+set -ex
+
+yum update -y
+sudo sysctl -w net.ipv4.ip_forward=1 | sudo tee -a /etc/sysctl.conf
+
+sudo yum install -y nftables
+
+# NAT設定追加 : NICデバイス名がeth0ではないので注意。今回の環境では ens5 だった
+sudo nft add table nat
+sudo nft -- add chain nat prerouting { type nat hook prerouting priority -100 \; }
+sudo nft add chain nat postrouting { type nat hook postrouting priority 100 \; }
+sudo nft add rule nat postrouting oifname "$(ip -o link show device-number-0.0 | awk -F': ' '{print $2}')" masquerade
+# NAT設定保存
+sudo nft list table nat | sudo tee /etc/nftables/al2023-nat.nft
+echo 'include "/etc/nftables/al2023-nat.nft"' | sudo tee -a /etc/sysconfig/nftables.conf
+
+# サービス起動＋自動起動設定
+sudo systemctl start nftables
+sudo systemctl enable nftables

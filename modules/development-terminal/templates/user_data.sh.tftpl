@@ -1,0 +1,13 @@
+#!/bin/bash
+set -ex
+
+# install tenv
+sudo apt update && sudo apt install -y jq
+
+# install aqua
+# HOME環境変数が設定されていないとaquaインストール時にエラーが発生するため、設定しておく
+export HOME=/home/ubuntu
+curl -sSfL https://raw.githubusercontent.com/aquaproj/aqua-installer/v3.0.1/aqua-installer -o /home/ubuntu/aqua-installer
+sudo -i -u ubuntu bash /home/ubuntu/aqua-installer
+export PATH=${AQUA_ROOT_DIR:-${XDG_DATA_HOME:-$HOME/.local/share}/aquaproj-aqua}/bin:$PATH
+echo "export PATH=${AQUA_ROOT_DIR:-${XDG_DATA_HOME:-$HOME/.local/share}/aquaproj-aqua}/bin:$PATH" >> /home/ubuntu/.profile
