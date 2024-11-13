@@ -7,4 +7,3 @@ variable "private_subnets" {
   description = "Private Subnets"
   type        = list(string)
 }
-
