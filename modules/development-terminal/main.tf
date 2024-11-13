@@ -68,9 +68,9 @@ resource "aws_instance" "main" {
   subnet_id                   = var.ec2_instance_info.subnet_id
   vpc_security_group_ids      = [aws_security_group.main.id]
   associate_public_ip_address = false
-  user_data              = file("${path.module}/templates/user_data.sh.tftpl")
-  key_name             = var.ec2_instance_info.key_pair_name
-  iam_instance_profile = aws_iam_instance_profile.main.name
+  user_data                   = file("${path.module}/templates/user_data.sh.tftpl")
+  key_name                    = var.ec2_instance_info.key_pair_name
+  iam_instance_profile        = aws_iam_instance_profile.main.name
   # user_dataの変更があった場合にインスタンスを再作成するかどうか。falseにすると変更があっても停止・起動の動作となる
   user_data_replace_on_change = true
 
