@@ -31,8 +31,9 @@ resource "aws_vpc_security_group_ingress_rule" "main" {
   to_port                      = each.value.to_port
 }
 data "aws_ssm_parameter" "ubuntu" {
-  name = "/aws/service/ami-amazon-linux-latest/al2023-ami-kernel-6.1-arm64"
+  name = "/aws/service/canonical/ubuntu/server/22.04/stable/current/amd64/hvm/ebs-gp2/ami-id"
 }
+
 
 ## ec2 role
 data "aws_iam_policy_document" "main" {
@@ -62,12 +63,12 @@ resource "aws_iam_instance_profile" "main" {
 }
 
 resource "aws_instance" "main" {
-  ami                         = var.ec2_instance_info.ami
+  ami                         = data.aws_ssm_parameter.ubuntu.value
   instance_type               = var.ec2_instance_info.instance_type
   subnet_id                   = var.ec2_instance_info.subnet_id
   vpc_security_group_ids      = [aws_security_group.main.id]
-  associate_public_ip_address = true
-  user_data              = templatefile("${path.module}/templates/user_data.sh.tftpl", {})
+  associate_public_ip_address = false
+  user_data              = file("${path.module}/templates/user_data.sh.tftpl")
   key_name             = var.ec2_instance_info.key_pair_name
   iam_instance_profile = aws_iam_instance_profile.main.name
   # user_dataの変更があった場合にインスタンスを再作成するかどうか。falseにすると変更があっても停止・起動の動作となる

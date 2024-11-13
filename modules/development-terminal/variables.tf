@@ -9,7 +9,6 @@ variable "vpc_id" {
 }
 variable "ec2_instance_info" {
   type = object({
-    ami           = string
     instance_type = string
     subnet_id     = string
     key_pair_name = string
